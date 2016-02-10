@@ -55,6 +55,9 @@ func setup(c *cli.Context) (*Configuration, *Account, *acme.Client) {
 		var err error
 		var provider acme.ChallengeProvider
 		switch c.GlobalString("dns") {
+		case "bouldertest":
+			boulderURL := os.Getenv("BOLDER_DNS_URL")
+			provider, err = acme.NewDNSProviderBoulderTestSRV(boulderURL)
 		case "cloudflare":
 			provider, err = acme.NewDNSProviderCloudFlare("", "")
 		case "digitalocean":
